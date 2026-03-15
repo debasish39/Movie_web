@@ -29,7 +29,7 @@ export default function Home() {
     return (
       <div className="flex flex-col justify-center items-center h-screen bg-black text-white gap-6">
 
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-900 to-cyan-600 bg-clip-text text-transparent">
           🎬 FilmBase
         </h1>
 
