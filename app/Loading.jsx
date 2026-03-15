@@ -5,7 +5,7 @@ export default function Loading(){
     <div className="flex flex-col justify-center items-center h-screen bg-black ">
 
       <video
-        src="https://res.cloudinary.com/dqyltwn9z/video/upload/v1773597796/Loading4_qtxl0f.webm"
+        src="https://res.cloudinary.com/dqyltwn9z/video/upload/v1773599934/Loading_yjpagr.webm"
         autoPlay
         loop
         muted
