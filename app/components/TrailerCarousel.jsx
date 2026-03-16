@@ -13,9 +13,12 @@ import "swiper/css/effect-fade";
 import { useState } from "react";
 import TrailerModal from "./TrailerModel";
 
+import { useUser, SignInButton } from "@clerk/nextjs";
+
 export default function TrailerCarousel() {
 
   const [activeVideo, setActiveVideo] = useState(null);
+  const { isSignedIn } = useUser();
 
   return (
 
@@ -24,7 +27,7 @@ export default function TrailerCarousel() {
       <Swiper
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
         slidesPerView={1}
-        pagination={{ clickable: true }}
+        // pagination={{ clickable: true }}
         autoplay={{ delay: 8000 }}
         effect="fade"
         loop
@@ -36,7 +39,7 @@ export default function TrailerCarousel() {
 
             <div className="relative w-full h-[520px] overflow-hidden group">
 
-              {/* VIDEO */}
+              {/* VIDEO ALWAYS VISIBLE */}
               <video
                 src={movie.trailer}
                 muted
@@ -46,17 +49,16 @@ export default function TrailerCarousel() {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
 
-              {/* CINEMATIC OVERLAY */}
+              {/* OVERLAY */}
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
               {/* MOVIE INFO */}
               <div className="absolute bottom-12 p-3 sm:left-12 max-w-xl">
 
                 <h2 className="text-xl sm:text-3xl font-bold text-white mb-3 drop-shadow-lg">
-                  {movie.title }
+                  {movie.title}
                 </h2>
 
-                {/* PLOT */}
                 <p className="text-gray-300 text-sm mb-4 line-clamp-3">
                   {movie.plot}
                 </p>
@@ -65,12 +67,25 @@ export default function TrailerCarousel() {
                   Official Trailer
                 </p>
 
-                <button
-                  onClick={() => setActiveVideo(movie.trailer)}
-                  className="flex items-center gap-2 bg-white text-black px-6 py-2 rounded-lg font-semibold hover:bg-gray-200 transition cursor-pointer"
-                >
-                  ▶ Play Trailer
-                </button>
+                {/* PLAY BUTTON */}
+                {isSignedIn ? (
+
+                  <button
+                    onClick={() => setActiveVideo(movie.trailer)}
+                    className="flex items-center gap-2 bg-white text-black px-6 py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
+                  >
+                    ▶ Play Trailer
+                  </button>
+
+                ) : (
+
+                  <SignInButton mode="modal">
+                    <button className="bg-white text-black px-6 py-2 rounded-lg font-semibold">
+                      🔒 Login to Play
+                    </button>
+                  </SignInButton>
+
+                )}
 
               </div>
 
@@ -82,10 +97,13 @@ export default function TrailerCarousel() {
 
       </Swiper>
 
-      <TrailerModal
-        video={activeVideo}
-        close={() => setActiveVideo(null)}
-      />
+      {/* VIDEO MODAL ONLY IF LOGGED IN */}
+      {isSignedIn && (
+        <TrailerModal
+          video={activeVideo}
+          close={() => setActiveVideo(null)}
+        />
+      )}
 
     </div>
 

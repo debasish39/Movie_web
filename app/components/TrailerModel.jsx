@@ -19,7 +19,7 @@ export default function TrailerModal({ video, close }) {
         src={video}
         controls
         autoPlay
-        className="w-[90%] max-w-5xl rounded-xl"
+        className="w-[90%] min-h-screen max-w-5xl rounded-xl"
       />
 
     </div>

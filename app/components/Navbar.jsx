@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useUser, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { FiSearch, FiMenu, FiX, FiHome } from "react-icons/fi";
-
+import Image from "next/image";
 export default function Navbar() {
 
   const { isSignedIn } = useUser();
@@ -12,17 +12,20 @@ export default function Navbar() {
 
   return (
 
-    <nav className="fixed bottom-0 left-0 w-full z-50 bg-black/90 backdrop-blur-md border-t border-gray-800
+    <nav className="fixed bottom-0 left-0 w-full z-50 bg-black/10 backdrop-blur-md border-t border-gray-800
                     md:sticky md:top-0 md:border-t-0 md:border-b">
 
       {/* DESKTOP NAVBAR */}
-      <div className="hidden md:flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
+      <div className="hidden md:flex items-center justify-between px-1 py-3 max-w-7xl mx-auto">
 
-        {/* LOGO */}
-        <Link href="/">
-          <h1 className="text-2xl font-bold tracking-wide cursor-pointer">
-            🎬 FilmBase
-          </h1>
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/logo.jpg"
+            alt="FilmBase Logo"
+            width={160}
+            height={160}
+            className="rounded-md"
+          />
         </Link>
 
         {/* MENU */}
@@ -83,7 +86,7 @@ export default function Navbar() {
             className="flex flex-col items-center text-gray-300"
             onClick={() => setOpen(!open)}
           >
-            {open ? <FiX className="text-xl"/> : <FiMenu className="text-xl"/>}
+            {open ? <FiX className="text-xl" /> : <FiMenu className="text-xl" />}
             <span className="text-xs">Menu</span>
           </button>
         )}

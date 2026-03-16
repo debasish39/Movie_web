@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useMovies } from "./hooks/useMovies";
 import Loading from "./Loading";
 import TrailerCarousel from "./components/TrailerCarousel";
+import { toast } from "sonner";
+import { useEffect } from "react";
 import { useUser, SignInButton } from "@clerk/nextjs";
 import MovieRow from "./components/MovieRow";
 
@@ -24,29 +26,7 @@ export default function Home() {
     );
   }
 
-  /* LOGIN PAGE */
-  if (!isSignedIn) {
-    return (
-      <div className="flex flex-col justify-center items-center h-screen bg-black text-white gap-6">
-
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-900 to-cyan-600 bg-clip-text text-transparent">
-          🎬 FilmBase
-        </h1>
-
-        <p className="text-gray-400">
-          Discover and rate your favorite movies
-        </p>
-
-        <SignInButton mode="modal">
-          <button className="bg-blue-600 px-6 py-2 rounded-lg hover:bg-blue-500 transition">
-            Sign In
-          </button>
-        </SignInButton>
-
-      </div>
-    );
-  }
-
+  
   /* MOVIE LOADER */
   if (loading) {
     return (

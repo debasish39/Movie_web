@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef } from "react";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { FaChevronLeft, FaChevronRight, FaFire } from "react-icons/fa";
 import MovieCard from "./MovieCard";
 
@@ -22,7 +24,14 @@ export default function MovieRow({ title, movies }) {
     });
 
   };
+const handleMovieClick = (movie) => {
+  if (!isSignedIn) {
+    router.push("/sign-in"); // Clerk sign-in page
+    return;
+  }
 
+  router.push(`/movie/${movie.imdbID}`);
+};
   return (
 
     <div className="max-w-9xl mx-auto px-6 mt-12 relative group">
@@ -60,8 +69,10 @@ export default function MovieRow({ title, movies }) {
       className="w-[200px] h-[360px] flex-shrink-0 transition duration-300 hover:scale-110 hover:z-20"
     >
 
-      <MovieCard movie={movie} />
-
+<MovieCard
+  movie={movie}
+  onClick={() => handleMovieClick(movie)}
+/>
     </div>
 
   ))}
